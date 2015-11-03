@@ -2,6 +2,7 @@
 
 dir_script=$( dirname $0 )
 docker_host_ip=$( ifconfig vboxnet1 | grep inet | cut -f 2 -d' ')
+user_name=$( whoami )
 user_uid=$( id -u )
 
 #docker-machine
@@ -37,8 +38,8 @@ launch()
 
 	echo "Lauching ${browser} in Docker..."
 	arg_volume=''
-	[ ! "$volume" == "" ] && arg_volume="-v ${volume}:/root"
-	docker run -e DISPLAY=${docker_host_ip}:0 ${arg_volume} -t "${name}"
+	[ ! "$volume" == "" ] && mkdir -p "${volume}/${name}" && arg_volume="-v ${volume}/${name}:/root"
+	docker run -e DISPLAY=${docker_host_ip}:0 -e BROWSER_USER_NAME=${user_name} -e BROWSER_USER_UID=${user_uid} ${arg_volume} -t "${name}"
 }
 
 #
