@@ -36,7 +36,7 @@ launch()
 
 	local name="${browser}-in-docker"
 
-	echo "Lauching ${browser} in Docker..."
+	echo "Launching ${browser} in Docker..."
 	arg_volume=''
 	[ ! "$volume" == "" ] && mkdir -p "${volume}/${name}" && arg_volume="-v ${volume}/${name}:/root"
 	docker run -e DISPLAY=${docker_host_ip}:0 -e BROWSER_USER_NAME=${user_name} -e BROWSER_USER_UID=${user_uid} ${arg_volume} -t "${name}"
@@ -51,8 +51,8 @@ error()
 {
 	local msg=$1
 
-    echo "[ERROR] ${msg}"
-    exit 1
+	echo "[ERROR] ${msg}"
+	exit 1
 }
 
 #
